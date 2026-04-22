@@ -1,107 +1,108 @@
-# AI Intent Deviation Decision Agent
+# Decision Skill: Better Option Detection
 
-## Overview
-This project is a decision-based AI workflow designed to detect and correct user intent deviation in customer service scenarios.
-
-In real-world interactions, users often express their needs inaccurately, which leads AI systems to provide technically correct but contextually inappropriate responses.
-
-This system identifies such deviations and adjusts the response strategy accordingly.
+A decision skill that checks whether a user's chosen approach is optimal for achieving their goal.
 
 ---
 
-## Problem
+## What this does
 
-In customer service scenarios:
-- Users may express incorrect or suboptimal requests
-- Traditional AI systems respond only to literal input
-- This leads to mismatched responses and poor user experience
+Instead of directly answering user questions, this skill forces a decision step:
 
-Example:
-User asks for: nearest bus station  
-Actual better option: subway is significantly closer  
+👉 **Is the current approach optimal, or is there a better alternative?**
 
 ---
 
-## Solution
+## Example
 
-This system introduces a **decision layer** into the AI workflow.
+### Input
+> "I want to improve my resume wording"
 
-### Workflow Structure:
-1. **User Input**
-2. **Context Injection (e.g., distance data)**
-3. **Decision Logic (LLM-based reasoning)**
-4. **Conditional Routing (IF node)**
-5. **Response Generation**
+### Output
+```json
+{
+  "better_option_exist": true,
+  "better_option": "First identify and strengthen your core experiences before improving wording",
+  "reason": "Optimizing wording without strong content will not significantly improve outcomes"
+}
+Core Logic
 
-### Output Strategy:
-- If no deviation → return single answer
-- If deviation detected → return dual answer + recommendation
+Traditional LLM flow:
 
----
+User Input → Direct Answer ❌
 
-## Tech Stack
+This skill adds a decision layer:
 
-- n8n (workflow orchestration)
-- OpenRouter API (LLM inference)
-- JavaScript node (logic processing)
-- HTTP Request nodes (LLM calls)
+User Input → Decision (mandatory) → Then Answer ✔
 
----
+Why this matters
 
-## Input / Output
+LLMs already have the ability to suggest better options, but:
 
-**Input:**
-- User query
-- Context data (e.g., distances)
+It is inconsistent
+It is not guaranteed to trigger
+It is implicit (hidden in generation)
 
-**Output:**
-- Single response OR dual response with recommendation
+This skill makes it:
 
----
+👉 Explicit, structured, and always executed
 
-## Current Stage
+What this skill actually does
+Converts implicit reasoning into explicit decision logic
+Forces the model to evaluate alternatives before responding
+Improves consistency of decision-making
+When to use this skill
+The user has a clear goal
+The user has chosen a specific approach
+There may exist a better alternative path
+When NOT to use
+Pure information queries (e.g. "What is the capital of France?")
+The user's goal is unclear
+No meaningful alternative exists
+Output Structure
+{
+  "better_option_exist": true/false,
+  "better_option": "...",
+  "reason": "..."
+}
+Implementation (Simplified)
 
-- Workflow logic validated
-- Decision mechanism implemented
-- External API integration (dynamic data) planned
+This skill is implemented using:
 
----
-## Example Cases
+Prompt-based decision definition
+Structured output constraints
+A dedicated decision step before response generation
+Key Insight
 
-### Case 1: Transportation (Intent Deviation)
+This project is not about making the model smarter.
 
-**Input:**
-User Query: Where is the nearest subway station?  
-Context:  
-- Subway distance: 10 km  
-- Bus distance: 5 km  
+👉 It is about making the decision step reliable and consistent
 
-**Output:**
-The nearest subway station is 10 km away.
+Positioning
 
-However, there is a better option available:  
-the bus station is only 5 km away.
+This is not:
 
-It is recommended to take the bus for a shorter travel distance.
+a chatbot
+a customer service system
+a full product
 
----
+This is:
 
-### Case 2: Room Selection (Intent Deviation)
+👉 a reusable decision skill that can be inserted into any LLM workflow
 
-**Input:**
-User Query: I would like to book a standard room.  
-Context:  
-- Standard room price: 500  
-- Deluxe room price: 300  
+Example Use Cases
+Resume optimization guidance
+Learning path correction
+Product decision support
+General user intent refinement
+Repository Structure
+decision_skill.js → core logic
+workflow.png → original workflow (optional reference)
+Summary
 
-**Output:**
-The standard room costs 500 and can be booked.
+This project extracts a hidden capability from LLMs:
 
-However, there is a better option available:  
-the deluxe room costs only 300.
+👉 detecting better alternatives
 
-It is recommended to choose the lower-priced room.
+and turns it into:
 
-## Author
-
-sijie Z
+👉 a stable, reusable decision layer
