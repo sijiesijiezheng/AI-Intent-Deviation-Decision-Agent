@@ -10,14 +10,14 @@ This is not a chatbot or a full product.
 
 It is a decision skill that forces a model to evaluate:
 
-Is the current approach optimal, or is there a better alternative?
+👉 Is the current approach optimal, or is there a better alternative?
 
 ---
 
 ## Example
 
 Input:
-I want to improve my resume wording
+I want to quickly improve my resume wording to pass screening
 
 Output:
 {
@@ -31,10 +31,10 @@ Output:
 ## Core Idea
 
 Traditional flow:
-User Input → Direct Answer
+User Input → Direct Answer ❌
 
 This skill changes it to:
-User Input → Decision (mandatory) → Then Answer
+User Input → Decision (mandatory) → Then Answer ✅
 
 ---
 
@@ -92,7 +92,7 @@ This skill makes it:
 
 - Prompt-based decision definition  
 - Structured output constraints  
-- A mandatory decision step before response  
+- A mandatory decision step before response generation  
 
 ---
 
@@ -100,7 +100,7 @@ This skill makes it:
 
 This project is not about making the model smarter.
 
-It is about making the decision step reliable and consistent.
+👉 It is about making the decision step reliable and consistent.
 
 ---
 
@@ -114,7 +114,7 @@ This is NOT:
 
 This IS:
 
-- a reusable decision skill that can be inserted into any LLM workflow  
+👉 a reusable decision skill that can be inserted into any LLM workflow  
 
 ---
 
@@ -129,10 +129,10 @@ This IS:
 
 ## Summary
 
-This project extracts a hidden capability from LLMs:
+This project takes a capability that LLMs already have:
 
-detecting better alternatives  
+"occasionally identifying better options"
 
 and turns it into:
 
-a stable, reusable decision layer
+👉 "a decision step that is always executed, structured, and reliable"
